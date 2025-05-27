@@ -61,6 +61,28 @@ function App() {
           jobTitle="laravel Developer"
           company="Codeinfotech"
         />
+
+        <UserProfileCard
+          name="bidon each"
+          email="bidon.each@test.in"
+          Age="65"
+          profilePicture="https://randomuser.me/api/portraits/men/82.jpg"
+          phone="+35465756242"
+          address="469 kulu St, Orgej"
+          jobTitle="laravel Developer"
+          company="Codeinfotech"
+        />
+
+        <UserProfileCard
+          name="bidon each"
+          email="bidon.each@test.in"
+          Age="65"
+          profilePicture="https://randomuser.me/api/portraits/men/82.jpg"
+          phone="+35465756242"
+          address="469 kulu St, Orgej"
+          jobTitle="laravel Developer"
+          company="Codeinfotech"
+        />
       </div>
     </div>
   );
