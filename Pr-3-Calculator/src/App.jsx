@@ -20,7 +20,7 @@ const App = () => {
       return;
     }
     setInput(input + value);
-  }; 
+  };  
 
   return (
     <div className="calculator-container">
