@@ -20,7 +20,6 @@ const Keypad = ({ onButtonClick }) => {
                     ${btn === '=' ? 'green' : ''}
                     ${btn === '0' ? 'zero' : ''}
                 `.trim().replace(/\s+/g, ' ');
-
                 return (
                     <Button
                         key={i}
