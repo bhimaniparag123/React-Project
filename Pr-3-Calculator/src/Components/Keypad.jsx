@@ -3,7 +3,7 @@ import Button from './Button';
 import './Keypad.css';
 
 const buttons = [
-    'AC', 'DEL', '+/-', '%',
+    '%', 'AC', 'DEL', '+/-',
     '÷', '7', '8', '9',
     '×', '4', '5', '6',
     '-', '1', '2', '3',
@@ -14,12 +14,17 @@ const Keypad = ({ onButtonClick }) => {
     return (
         <div className="keypad">
             {buttons.map((btn, i) => {
-                const btnClass = `
-                    btn 
-                    ${['÷', '×', '-', '+', '%'].includes(btn) ? 'orange' : ''}
-                    ${btn === '=' ? 'green' : ''}
-                    ${btn === '0' ? 'zero' : ''}
-                `.trim().replace(/\s+/g, ' ');
+                let btnClass = 'btn ';
+                if (['÷', '×', '-', '+', '%'].includes(btn)) {
+                    btnClass += 'orange ';
+                }
+                if (btn === '=') {
+                    btnClass += 'triple-height green ';
+                }
+                if (btn === '0') {
+                    btnClass += 'triple-width ';
+                }
+                btnClass = btnClass.trim();
                 return (
                     <Button
                         key={i}
