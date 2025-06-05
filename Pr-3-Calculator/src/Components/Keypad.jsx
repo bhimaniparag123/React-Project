@@ -19,7 +19,7 @@ const Keypad = ({ onButtonClick }) => {
                     btnClass += 'orange ';
                 }
                 if (btn === '=') {
-                    btnClass += 'triple-height green ';
+                    btnClass += 'triple-height ';
                 }
                 if (btn === '0') {
                     btnClass += 'triple-width ';
