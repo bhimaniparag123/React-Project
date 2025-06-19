@@ -1,0 +1,12 @@
+.App {
+  padding: 40px;
+  background-color: #eef2f3;
+  min-height: 100vh;
+}
+
+.card-row {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+} 

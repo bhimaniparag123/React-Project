@@ -1,0 +1,83 @@
+.matcha-section {
+  background-color: #37c285;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding-top: 100px;
+  padding-bottom: 80px;
+  color: #fff;
+}
+
+.section-subtitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffffb3;
+  letter-spacing: 1px;
+}
+
+.section-title {
+  font-size: 64px;
+  font-weight: 500;
+    font-family: 'Kalnia', serif;
+  color: #fff;
+}
+
+.section-desc {
+  font-size: 22px;
+  font-family: 'DM Sans', sans-serif;
+  color: #f0f0f0;
+}
+
+.visuals img {
+  
+  position: absolute;
+  z-index: 1;
+}
+
+.icecream-scoop {
+  width: 220px;
+  top: 360px;
+  left: -160px;
+  z-index: 2;
+}
+
+.swirl-bg {
+  /* width: 180px; */
+  /* top: 0px;
+  left: 40px;
+  z-index: 1; */
+    /* width: 180px; */
+    top: -4px;
+    left: -37px;
+    z-index: 1;
+}
+
+.product-box {
+  width: 40%;
+  right: -100px;
+  top: -20px;
+  bottom: 0px;
+  z-index: 2;
+}
+
+.mochi-ball {
+  width: 100px;
+  right: 180px;
+  bottom: 70px;
+  z-index: 2;
+}
+
+.leaf {
+  /* width: 50px;
+  left: 20px;
+  bottom: 140px; */
+    width: 100px;
+    left: 0px;
+    bottom: 410px;
+}
+
+.fruit {
+  width: 40px;
+  right: 50px;
+  top: 70%;
+}

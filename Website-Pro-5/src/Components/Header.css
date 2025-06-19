@@ -1,0 +1,38 @@
+.custom-navbar {
+  background-color: #ffe0d8 !important;
+  border-bottom: 1px solid #f5cfc4;
+}
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+  color: #111 !important;
+  position: relative;
+  padding: 8px 0;
+  font-size: 15px;
+}
+
+.navbar-nav .nav-link.active-link {
+  font-weight: 600;
+}
+
+.navbar-nav .nav-link.active-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 2px;
+  width: 100%;
+  background-color: #e50914; /* Red underline */
+}
+
+.icon-group .nav-icon {
+  font-size: 1.2rem;
+  color: #000;
+  margin-left: 20px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.icon-group .nav-icon:hover {
+  color: #e91e63;
+}

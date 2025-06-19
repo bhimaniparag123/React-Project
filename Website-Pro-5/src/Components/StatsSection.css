@@ -1,0 +1,49 @@
+.stats-section {
+  background-color: #ffffff;
+  font-family: 'DM Sans', sans-serif;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.stat-item {
+  animation: fadeInUp 0.6s ease both;
+  padding: 20px 10px;
+}
+
+.stat-number {
+  font-family: 'Kalnia', serif;
+  font-size: 3.8rem;
+  font-weight: 700;
+  color: #e31c1c;
+  line-height: 1;
+}
+
+.stat-unit {
+  font-size: 0.8rem;
+  color: #999999;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 0.3rem;
+}
+
+.stat-label {
+  font-family: 'Kalnia', serif;
+  font-size: 1.6rem;
+  color: #111;
+  margin-top: 0.3rem;
+}
+
+.svg-divider {
+  padding: 0 20px;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

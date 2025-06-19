@@ -1,0 +1,101 @@
+.hero-banner {
+  background-color: #ffe0d8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 5%;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  max-width: 520px;
+  z-index: 2;
+}
+
+.new-flavours {
+  font-family: "DM Sans", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 24px;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.hero-title {
+  font-size: 52px;
+  color: #e50914;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.hero-description {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.shop-now-btn {
+  background: #fff;
+  color: #111;
+  font-weight: 600;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 30px;
+  font-size: 15px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.shop-now-btn:hover {
+  background: #111;
+  color: #fff;
+}
+
+.hero-image-wrapper {
+  position: relative;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.child-img {
+  max-width: 380px;
+  position: relative;
+  z-index: 2;
+}
+
+.circle-bg {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  background: #f78c50;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.fruit {
+  position: absolute;
+  z-index: 3;
+}
+
+.kiwi {
+  top: 0;
+  right: 0;
+  width: 60px;
+}
+
+.grapefruit {
+  top: 20px;
+  left: 0;
+  width: 80px;
+}
+
+.leaf {
+  bottom: 0;
+  left: 0;
+  width: 90px;
+}

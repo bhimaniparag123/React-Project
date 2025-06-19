@@ -1,0 +1,31 @@
+.flavor-slider {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 2rem 1rem;
+  margin: 100px 0px 100px 0px;
+}
+
+.slider-track {
+  display: flex;
+  gap: 1.5rem;
+  padding-left: 1rem;
+}
+
+.flavor-slide {
+  flex: 0 0 calc(100% / 3.5);
+  max-width: 250px;
+  max-width: 450px;
+}
+
+.card img {
+  transition: transform 0.3s ease-in-out;
+}
+
+.hover-icons {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .hover-icons {
+  opacity: 1;
+}
