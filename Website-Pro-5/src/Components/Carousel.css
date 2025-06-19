@@ -1,9 +1,8 @@
 .hero-banner {
-  background-color: #ffe0d8;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 60px 5%;
+  padding: 0px 5%;
   position: relative;
   overflow: hidden;
 }
@@ -14,18 +13,20 @@
 }
 
 .new-flavours {
-  font-family: "DM Sans", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "Tirelessly Love You", sans-serif; /* or similar handwritten font */
   font-size: 24px;
   color: #000;
   margin-bottom: 10px;
+  font-style: italic;
 }
 
 .hero-title {
-  font-size: 52px;
+  font-size: 54px;
   color: #e50914;
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 20px;
+  font-family: "Playfair Display", serif; /* Elegant serif */
 }
 
 .hero-description {
@@ -35,8 +36,8 @@
 }
 
 .shop-now-btn {
-  background: #fff;
-  color: #111;
+  /* background: #fff;
+  color: #111; */
   font-weight: 600;
   padding: 12px 24px;
   border: none;
@@ -56,14 +57,15 @@
 
 .hero-image-wrapper {
   position: relative;
-  width: 50%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .child-img {
-  max-width: 380px;
+  max-width: 100%;
+  height: auto;
   position: relative;
   z-index: 2;
 }
@@ -72,7 +74,6 @@
   position: absolute;
   width: 450px;
   height: 450px;
-  background: #f78c50;
   border-radius: 50%;
   z-index: 1;
 }
