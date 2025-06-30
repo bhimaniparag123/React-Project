@@ -1,13 +1,13 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-// import NavDropdown from "react-bootstrap/NavDropdown";
 import { BsChevronDown, BsCart, BsHeart, BsPerson, BsSearch } from "react-icons/bs";
 import "./Header.css"; // Make sure to add this CSS
+// import NavDropdown from "react-bootstrap/NavDropdown";
 
 function NavScrollExample() {
   return (
-    <Navbar expand="lg" className="custom-navbar py-3">
+    <Navbar expand="lg" className="custom-navbar">
       <Container className="ps-0 pe-0">
         {/* Brand Logo */}
         <Navbar.Brand href="#" className="d-flex align-items-center">

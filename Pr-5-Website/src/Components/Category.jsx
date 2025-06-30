@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../Components/Category.css";
-import { BsArrowLeftShort } from "react-icons/bs";
-import { BsArrowRightShort } from "react-icons/bs";
+import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 import img1 from "../assets/asset 19.jpeg";
 import img2 from "../assets/asset 20.jpeg";
 import img3 from "../assets/asset 21.jpeg";
