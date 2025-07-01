@@ -70,7 +70,7 @@ const ProductList = () => {
         <Col md={4}>
           <Form.Control
             type="text"
-            placeholder="Search by name, category or description"
+            placeholder="Search Products..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
