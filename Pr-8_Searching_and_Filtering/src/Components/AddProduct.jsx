@@ -14,6 +14,15 @@ const AddProduct = () => {
     description: "",
     stock: "",
   };
+  const categoryOptions = [
+    "Electronics",
+    "Clothing",
+    "Grocery",
+    "Books",
+    "Furniture",
+    "Beauty",
+    "Toys",
+  ];
   const [inputForm, setInputForm] = useState(initialState);
 
   const handleChanged = (e) => {
@@ -35,7 +44,9 @@ const AddProduct = () => {
       <h2>Add Product</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group as={Row} className="mb-3">
-          <Form.Label column sm="2">Product Name</Form.Label>
+          <Form.Label column sm="2">
+            Product Name
+          </Form.Label>
           <Col sm="10">
             <Form.Control
               type="text"
@@ -49,7 +60,9 @@ const AddProduct = () => {
         </Form.Group>
 
         <Form.Group as={Row} className="mb-3">
-          <Form.Label column sm="2">Price ₹</Form.Label>
+          <Form.Label column sm="2">
+            Price ₹
+          </Form.Label>
           <Col sm="10">
             <Form.Control
               type="number"
@@ -62,21 +75,27 @@ const AddProduct = () => {
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} className="mb-3">
+        <Form.Group className="mb-3 d-flex">
           <Form.Label column sm="2">Category</Form.Label>
-          <Col sm="10">
-            <Form.Control
-              type="text"
-              name="category"
-              value={inputForm.category}
-              onChange={handleChanged}
-              placeholder="Enter category"
-            />
-          </Col>
+          <Form.Select
+            name="category"
+            value={inputForm.category}
+            onChange={handleChanged}
+            required
+          >
+            <option value="">Select Category</option>
+            {categoryOptions.map((cat, index) => (
+              <option key={index} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </Form.Select>
         </Form.Group>
 
         <Form.Group as={Row} className="mb-3">
-          <Form.Label column sm="2">Description</Form.Label>
+          <Form.Label column sm="2">
+            Description
+          </Form.Label>
           <Col sm="10">
             <Form.Control
               type="text"
@@ -89,7 +108,9 @@ const AddProduct = () => {
         </Form.Group>
 
         <Form.Group as={Row} className="mb-3">
-          <Form.Label column sm="2">Stock</Form.Label>
+          <Form.Label column sm="2">
+            Stock
+          </Form.Label>
           <Col sm="10">
             <Form.Control
               type="number"
@@ -101,7 +122,9 @@ const AddProduct = () => {
           </Col>
         </Form.Group>
 
-        <Button type="submit" variant="success">Add Product</Button>
+        <Button type="submit" variant="success">
+          Add Product
+        </Button>
       </Form>
     </Container>
   );
