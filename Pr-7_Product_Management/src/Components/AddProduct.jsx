@@ -101,7 +101,7 @@ const AddProduct = () => {
           </Col>
         </Form.Group>
 
-        <Button type="submit" variant="primary">Add Product</Button>
+        <Button type="submit" variant="success">Add Product</Button>
       </Form>
     </Container>
   );
