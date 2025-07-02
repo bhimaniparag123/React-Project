@@ -56,8 +56,7 @@ const EditProduct = () => {
     const updatedProducts = products.map((prod) =>
       prod.id === id ? inputForm : prod
     );
-    setProducts(updatedProducts); // ✅ Just update state
-    // ❌ Do not call setStorageData(updatedProducts)
+    setProducts(updatedProducts); 
     alert("Product updated temporarily (not saved to localStorage).");
     navigate("/");
   };
