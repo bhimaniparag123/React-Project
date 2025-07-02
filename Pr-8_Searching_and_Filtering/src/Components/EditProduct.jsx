@@ -7,7 +7,7 @@ import {
   Row,
   Card
 } from "react-bootstrap";
-import { getStorageData, setStorageData } from "../Services/localSotrageData";
+import { getStorageData } from "../Services/localSotrageData"; // ✅ Only import get
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditProduct = () => {
@@ -23,6 +23,7 @@ const EditProduct = () => {
     stock: "",
   };
 
+  const [products, setProducts] = useState([]); // ✅ Local copy of product list
   const [inputForm, setInputForm] = useState(initialState);
 
   const categoryOptions = [
@@ -36,10 +37,12 @@ const EditProduct = () => {
   ];
 
   useEffect(() => {
-    const data = getStorageData();
+    const data = getStorageData(); // ✅ Load from localStorage once
+    setProducts(data); // ✅ Store in local state
+
     const product = data.find((prod) => prod.id === id);
     if (product) {
-      setInputForm(product);
+      setInputForm(product); // ✅ Pre-fill form with product
     }
   }, [id]);
 
@@ -50,11 +53,12 @@ const EditProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const products = getStorageData();
-    const updated = products.map((prod) =>
+    const updatedProducts = products.map((prod) =>
       prod.id === id ? inputForm : prod
     );
-    setStorageData(updated);
+    setProducts(updatedProducts); // ✅ Just update state
+    // ❌ Do not call setStorageData(updatedProducts)
+    alert("Product updated temporarily (not saved to localStorage).");
     navigate("/");
   };
 
