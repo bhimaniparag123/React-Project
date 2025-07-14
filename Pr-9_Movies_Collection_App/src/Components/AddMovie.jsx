@@ -1,29 +1,21 @@
-// src/Components/AddProduct.jsx
 import { useState } from "react";
-import { Button, Col, Form, Row, Container } from "react-bootstrap";
+import { Button, Col, Form, Row, Container, Image } from "react-bootstrap";
 import generateUniqueId from "generate-unique-id";
 import { getStorageData, setStorageData } from "../Services/localSotrageData";
 import { useNavigate } from "react-router-dom";
 
-const AddProduct = () => {
+const AddMovie = () => {
   const navigate = useNavigate();
+  
   const initialState = {
     id: "",
     name: "",
     price: "",
-    category: "",
     description: "",
-    stock: "",
+    image: "", // ✅ added image property
   };
-  const categoryOptions = [
-    "Electronics",
-    "Clothing",
-    "Grocery",
-    "Books",
-    "Furniture",
-    "Beauty",
-    "Toys",
-  ];
+
+
   const [inputForm, setInputForm] = useState(initialState);
 
   const handleChanged = (e) => {
@@ -31,21 +23,39 @@ const AddProduct = () => {
     setInputForm({ ...inputForm, [name]: value });
   };
 
+  // ✅ Image handler (base64 conversion)
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setInputForm((prev) => ({
+          ...prev,
+          image: reader.result,
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    inputForm.id = generateUniqueId({ length: 6, useLetters: false });
+    const newMovie = {
+      ...inputForm,
+      id: generateUniqueId({ length: 6, useLetters: false }),
+    };
     const data = getStorageData();
-    data.push(inputForm);
+    data.push(newMovie);
     setStorageData(data);
     navigate("/");
   };
 
   return (
     <Container className="mt-4">
-      <h2>Add Product</h2>
+      <h2>Add Movie</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group as={Row} className="mb-3">
-          <Form.Label column sm="2">Product Name</Form.Label>
+          <Form.Label column sm="2">Movie Name</Form.Label>
           <Col sm="10">
             <Form.Control
               type="text"
@@ -53,7 +63,7 @@ const AddProduct = () => {
               value={inputForm.name}
               onChange={handleChanged}
               required
-              placeholder="Enter product name"
+              placeholder="Enter movie name"
             />
           </Col>
         </Form.Group>
@@ -73,23 +83,6 @@ const AddProduct = () => {
         </Form.Group>
 
         <Form.Group as={Row} className="mb-3">
-          <Form.Label column sm="2">Category</Form.Label>
-          <Col sm="10">
-            <Form.Select
-              name="category"
-              value={inputForm.category}
-              onChange={handleChanged}
-              required
-            >
-              <option value="">Select Category</option>
-              {categoryOptions.map((cat, index) => (
-                <option key={index} value={cat}>{cat}</option>
-              ))}
-            </Form.Select>
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mb-3">
           <Form.Label column sm="2">Description</Form.Label>
           <Col sm="10">
             <Form.Control
@@ -101,24 +94,33 @@ const AddProduct = () => {
             />
           </Col>
         </Form.Group>
-
+        {/* ✅ Image Upload */}
         <Form.Group as={Row} className="mb-3">
-          <Form.Label column sm="2">Stock</Form.Label>
+          <Form.Label column sm="2">Image</Form.Label>
           <Col sm="10">
             <Form.Control
-              type="number"
-              name="stock"
-              value={inputForm.stock}
-              onChange={handleChanged}
-              placeholder="Enter stock"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
             />
+            {inputForm.image && (
+              <Image
+                src={inputForm.image}
+                alt="Preview"
+                className="mt-3"
+                thumbnail
+                style={{ maxWidth: "200px" }}
+              />
+            )}
           </Col>
         </Form.Group>
 
-        <Button type="submit" variant="success">Add Product</Button>
+        <Button type="submit" variant="success">
+          Add Movie
+        </Button>
       </Form>
     </Container>
   );
 };
 
-export default AddProduct;
+export default AddMovie;

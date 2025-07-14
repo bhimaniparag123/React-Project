@@ -1,5 +1,4 @@
-// src/Components/ProductList.jsx
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -10,15 +9,13 @@ import {
   Dropdown,
   Pagination,
 } from "react-bootstrap";
+import { getStorageData, setStorageData } from "../Services/localSotrageData";
 import { useNavigate } from "react-router-dom";
-import { ProductContext } from "../context/ProductContext";
-import { getStorageData } from "../Services/localSotrageData";
 
-const ProductList = () => {
+const MovieList = () => {
   const navigate = useNavigate();
-  const { products, setProducts } = useContext(ProductContext);
 
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [Movies, setMovies] = useState(getStorageData());
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [sortBy, setSortBy] = useState("default");
@@ -27,14 +24,28 @@ const ProductList = () => {
   const itemsPerPage = 8;
 
   // Unique categories for dropdown filter
-  const categories = ["All", ...new Set(products.map(p => p.category).filter(Boolean))];
+  const categories = ["All", ...new Set(getStorageData().map(p => p.category).filter(Boolean))];
 
   useEffect(() => {
-    setFilteredProducts(products);
-  }, [products]);
+    setStorageData(Movies);
+  }, [Movies]);
+
+  const handleDelete = (id) => {
+    const filtered = Movies.filter((prod) => prod.id !== id);
+    setMovies(filtered);
+  };
+
+  const handleEdit = (id) => {
+    navigate(`/edit-Movie/${id}`);
+  };
+
+  const handleView = (id) => {
+    navigate(`/view-Movie/${id}`);
+  };
 
   const handleSearch = () => {
-    let filtered = products;
+    const allData = getStorageData();
+    let filtered = allData;
 
     if (searchTerm) {
       filtered = filtered.filter((prod) =>
@@ -48,23 +59,21 @@ const ProductList = () => {
       filtered = filtered.filter((prod) => prod.category === categoryFilter);
     }
 
-    setFilteredProducts(filtered);
+    setMovies(filtered);
     setCurrentPage(1);
   };
 
   const handleClear = () => {
     setSearchTerm("");
     setCategoryFilter("All");
-    const allProducts = getStorageData(); // 🟢 restore from original localStorage
-    setProducts(allProducts);             // 🟢 reset context memory
-    setFilteredProducts(allProducts);     // 🟢 show all products again
+    setMovies(getStorageData());
     setCurrentPage(1);
     setSortBy("default");
   };
 
   const handleSort = (type) => {
     setSortBy(type);
-    const sorted = [...filteredProducts];
+    const sorted = [...Movies];
 
     switch (type) {
       case "price-asc":
@@ -80,45 +89,28 @@ const ProductList = () => {
         sorted.sort((a, b) => b.stock - a.stock);
         break;
       default:
-        sorted.sort((a, b) => a.id.localeCompare(b.id));
+        sorted.sort((a, b) => a.id.localeCompare(b.id)); // fallback: sort by id
     }
 
-    setFilteredProducts(sorted);
-  };
-
-  const handleDelete = (id) => {
-    const updated = filteredProducts.filter((prod) => prod.id !== id);
-    setFilteredProducts(updated);
-
-    const allData = products.filter((prod) => prod.id !== id);
-    setProducts(allData);
-    // Optional: setStorageData(allData); // if you want delete to affect localStorage too
-  };
-
-  const handleEdit = (id) => {
-    navigate(`/edit-product/${id}`);
-  };
-
-  const handleView = (id) => {
-    navigate(`/view-product/${id}`);
+    setMovies(sorted);
   };
 
   // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentProducts = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const currentMovies = Movies.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(Movies.length / itemsPerPage);
 
   return (
     <Container className="my-4">
-      <h1 className="mb-4 text-center">Product List</h1>
+      <h1 className="mb-4 text-center">Movie List</h1>
 
       {/* Search / Filter / Sort */}
       <Row className="mb-4">
         <Col md={3}>
           <Form.Control
             type="text"
-            placeholder="Search Products"
+            placeholder="Search Movies"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -153,34 +145,44 @@ const ProductList = () => {
               <Dropdown.Item eventKey="price-asc">Price: Low to High</Dropdown.Item>
               <Dropdown.Item eventKey="price-desc">Price: High to Low</Dropdown.Item>
               <Dropdown.Item eventKey="name-asc">Name (A-Z)</Dropdown.Item>
-              <Dropdown.Item eventKey="stock-desc">Stock (High to Low)</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Col>
+        
       </Row>
 
-      {/* Product Cards */}
-      {currentProducts.length === 0 ? (
-        <h5 className="text-center text-muted">No Products Found</h5>
+      {/* Movie Cards */}
+      {currentMovies.length === 0 ? (
+        <h5 className="text-center text-muted">No Movies Found</h5>
       ) : (
         <Row xs={1} sm={2} md={3} lg={4} className="g-4">
-          {currentProducts.map((prod) => (
+          {currentMovies.map((prod) => (
             <Col key={prod.id}>
               <Card className="h-100 shadow-sm">
+                {prod.image && (
+                  <Card.Img
+                    variant="top"
+                    src={prod.image}
+                    height="150"
+                    style={{ objectFit: "cover" }}
+                  />
+                )}
                 <Card.Body>
                   <Card.Title className="fw-bold">{prod.name}</Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">
                     ₹ {prod.price}
                   </Card.Subtitle>
-                  <Card.Text>
-                    <strong>Category:</strong> {prod.category}<br />
-                    <strong>Stock:</strong> {prod.stock}
-                  </Card.Text>
                 </Card.Body>
                 <Card.Footer className="d-flex justify-content-between">
-                  <Button variant="info" size="sm" onClick={() => handleView(prod.id)}>View</Button>
-                  <Button variant="warning" size="sm" onClick={() => handleEdit(prod.id)}>Edit</Button>
-                  <Button variant="danger" size="sm" onClick={() => handleDelete(prod.id)}>Delete</Button>
+                  <Button variant="info" size="sm" onClick={() => handleView(prod.id)}>
+                    View
+                  </Button>
+                  <Button variant="warning" size="sm" onClick={() => handleEdit(prod.id)}>
+                    Edit
+                  </Button>
+                  <Button variant="danger" size="sm" onClick={() => handleDelete(prod.id)}>
+                    Delete
+                  </Button>
                 </Card.Footer>
               </Card>
             </Col>
@@ -210,4 +212,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default MovieList;

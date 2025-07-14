@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+// src/Components/EditProduct.jsx
+import { useContext, useEffect, useState } from "react";
 import {
   Button,
   Col,
@@ -7,24 +8,22 @@ import {
   Row,
   Card
 } from "react-bootstrap";
-import { getStorageData } from "../Services/localSotrageData"; // ✅ Only import get
 import { useNavigate, useParams } from "react-router-dom";
+import { ProductContext } from "../context/ProductContext";
 
 const EditProduct = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { products, setProducts } = useContext(ProductContext);
 
-  const initialState = {
+  const [inputForm, setInputForm] = useState({
     id: "",
     name: "",
     price: "",
     category: "",
     description: "",
     stock: "",
-  };
-
-  const [products, setProducts] = useState([]); // ✅ Local copy of product list
-  const [inputForm, setInputForm] = useState(initialState);
+  });
 
   const categoryOptions = [
     "Electronics",
@@ -37,14 +36,11 @@ const EditProduct = () => {
   ];
 
   useEffect(() => {
-    const data = getStorageData(); // ✅ Load from localStorage once
-    setProducts(data); // ✅ Store in local state
-
-    const product = data.find((prod) => prod.id === id);
+    const product = products.find((prod) => prod.id === id);
     if (product) {
-      setInputForm(product); // ✅ Pre-fill form with product
+      setInputForm({ ...product });
     }
-  }, [id]);
+  }, [id, products]);
 
   const handleChanged = (e) => {
     const { name, value } = e.target;
@@ -56,8 +52,8 @@ const EditProduct = () => {
     const updatedProducts = products.map((prod) =>
       prod.id === id ? inputForm : prod
     );
-    setProducts(updatedProducts); 
-    alert("Product updated temporarily (not saved to localStorage).");
+    setProducts(updatedProducts); // only update in memory (context)
+    alert("Product updated in memory only (not saved to localStorage).");
     navigate("/");
   };
 
@@ -76,7 +72,6 @@ const EditProduct = () => {
                     name="name"
                     value={inputForm.name}
                     onChange={handleChanged}
-                    placeholder="Enter product name"
                     required
                   />
                 </Form.Group>
@@ -88,7 +83,6 @@ const EditProduct = () => {
                     name="price"
                     value={inputForm.price}
                     onChange={handleChanged}
-                    placeholder="Enter product price"
                     required
                   />
                 </Form.Group>
@@ -102,10 +96,8 @@ const EditProduct = () => {
                     required
                   >
                     <option value="">Select Category</option>
-                    {categoryOptions.map((cat, index) => (
-                      <option key={index} value={cat}>
-                        {cat}
-                      </option>
+                    {categoryOptions.map((cat, i) => (
+                      <option key={i} value={cat}>{cat}</option>
                     ))}
                   </Form.Select>
                 </Form.Group>
@@ -118,7 +110,6 @@ const EditProduct = () => {
                     name="description"
                     value={inputForm.description}
                     onChange={handleChanged}
-                    placeholder="Enter product description"
                   />
                 </Form.Group>
 
@@ -129,18 +120,13 @@ const EditProduct = () => {
                     name="stock"
                     value={inputForm.stock}
                     onChange={handleChanged}
-                    placeholder="Enter stock quantity"
                     required
                   />
                 </Form.Group>
 
                 <div className="d-flex justify-content-between">
-                  <Button variant="secondary" onClick={() => navigate("/")}>
-                    Cancel
-                  </Button>
-                  <Button type="submit" variant="success">
-                    Update Product
-                  </Button>
+                  <Button variant="secondary" onClick={() => navigate("/")}>Cancel</Button>
+                  <Button type="submit" variant="success">Update Product</Button>
                 </div>
               </Form>
             </Card.Body>
